@@ -33,6 +33,10 @@ class FavoriteCreatureListViewController: UITableViewController {
     func setFavoriteCreature(_ favoriteCreature: Dream.Creature) {
         self.favoriteCreature = favoriteCreature
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        favoriteCreatureDidChange?(favoriteCreature);
+    }
 
     /**
         This method takes in a closure that can modify the view controller's
@@ -113,16 +117,5 @@ class FavoriteCreatureListViewController: UITableViewController {
         withFavoriteCreature { newFavoriteCreature in
             newFavoriteCreature = Dream.Creature.all[indexPath.row]
         }
-    }
-
-    // MARK: IBActions
-
-    @IBAction func cancelTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-
-    @IBAction func doneTapped() {
-        favoriteCreatureDidChange?(favoriteCreature)
-        dismiss(animated: true, completion: nil)
     }
 }

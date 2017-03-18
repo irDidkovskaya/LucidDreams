@@ -353,6 +353,7 @@ class DreamListViewController: UITableViewController {
 
     func configureDreamCell(_ cell: DreamCell, at indexPath: IndexPath) {
         let accessoryType: UITableViewCellAccessoryType
+        
         switch state {
             case .duplicating:
                 accessoryType = .none
@@ -363,7 +364,8 @@ class DreamListViewController: UITableViewController {
             case .selecting:
                 accessoryType = .none
         }
-
+        
+        cell.favorite = model.dreams[indexPath.row].creature == model.favoriteCreature
         cell.accessoryType = accessoryType
         cell.dream = model.dreams[indexPath.row]
     }

@@ -18,6 +18,13 @@ class DreamCell: UITableViewCell {
 
     var content = UILabel()
     var accessories = [UIImageView]()
+    var favorite : Bool = false {
+        didSet {
+            content.textColor = favorite ? UIColor.blue : UIColor.black;
+            let fontSize = content.font.pointSize
+            content.font = favorite ? UIFont.boldSystemFont(ofSize: fontSize) : UIFont.systemFont(ofSize: fontSize);
+        }
+    }
 
     var dream: Dream! {
         didSet {
