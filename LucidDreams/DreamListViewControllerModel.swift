@@ -8,6 +8,8 @@
                 test it in isolation without having to import the view controller.
 */
 
+import Foundation
+
 /// Defines the `Model` type for the `DreamListViewController`.
 struct DreamListViewControllerModel: Equatable {
     // MARK: Properties
@@ -43,14 +45,55 @@ struct DreamListViewControllerModel: Equatable {
             _dreams[index] = newValue
         }
     }
+    
+    mutating func encode() -> Dictionary<String, AnyObject> {
+        
+        var dictionary : Dictionary = Dictionary<String, AnyObject>()
+        dictionary["favoriteCreature"] = favoriteCreature.name as AnyObject?
+        
+        let dreamsList: NSMutableArray = [];
+        for dream in _dreams {
+            
+            dreamsList.add(dream.encode());
+            
+        }
+        
+        dictionary["dreams"] = dreamsList;
+        return dictionary
+    }
 
+    
+     init(dictionary: Dictionary<String, AnyObject>)    {
+        
+        let favoriteCreature = Dream.getCreatureByName(name: dictionary["favoriteCreature"] as! String);
+    
+        let dreamsList: NSMutableArray = [];
+        
+        for dict in dictionary["dreams"] as! NSArray
+        {
+            let dream = Dream.init(dictionary: dict as! Dictionary<String, AnyObject>);
+            dreamsList.add(dream);
+        }
+        
+        self.favoriteCreature = favoriteCreature
+        _dreams = (dreamsList as NSArray) as! [Dream]
+    }
+    
+    
     /// Set of default data to be used for the model.
     static var initial: DreamListViewControllerModel {
-        return DreamListViewControllerModel(favoriteCreature: .unicorn(.pink), dreams: [
+        
+        if (DataManager.getModel() != nil)
+        {
+            return DataManager.getModel()!
+        }
+        else {
+            return DreamListViewControllerModel(favoriteCreature: .unicorn(.pink), dreams: [
             Dream(description: "Dream 1", creature: .unicorn(.pink), effects: [.fireBreathing]),
             Dream(description: "Dream 2", creature: .unicorn(.yellow), effects: [.laserFocus, .magic], numberOfCreatures: 2),
             Dream(description: "Dream 3", creature: .unicorn(.white), effects: [.fireBreathing, .laserFocus], numberOfCreatures: 3)
         ])
+        }
     }
 
     /**

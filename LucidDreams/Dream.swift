@@ -22,7 +22,7 @@ struct Dream: Equatable {
     enum Creature: Equatable {
         enum UnicornColor {
             case yellow, pink, white
-        }
+        } 
 
         case unicorn(UnicornColor)
         case crusty
@@ -54,6 +54,7 @@ struct Dream: Equatable {
                 case .shark: return "Shark"
                 case .dragon: return "Dragon"
             }
+            
         }
 
         /// All creatures so that we can present them in a list.
@@ -68,7 +69,7 @@ struct Dream: Equatable {
     }
 
     /// The `Effect` type adds effect to how the dream is previewed.
-    enum Effect {
+    enum Effect: Int {
         case fireBreathing
         case laserFocus
         case magic
@@ -132,6 +133,64 @@ struct Dream: Equatable {
         self.effects = effects
         self.numberOfCreatures = numberOfCreatures
     }
+    
+    public func encode() -> Dictionary<String, AnyObject> {
+        
+        var dictionary : Dictionary = Dictionary<String, AnyObject>()
+        dictionary["description"] = description as AnyObject?
+        dictionary["creature"] = creature.name as AnyObject?
+        
+        
+        let effectList : NSMutableArray = [];
+        for effect in effects
+        {
+            effectList.add(NSNumber(value: effect.rawValue))
+        }
+        
+        
+        dictionary["effects"] = effectList
+        dictionary["numberOfCreatures"] = NSNumber(value: numberOfCreatures) as AnyObject
+        
+        
+        
+        return dictionary
+    }
+    
+    
+    
+    
+    init(dictionary : Dictionary<String, AnyObject>) {
+        self.description = dictionary["description"] as! String
+        self.creature = Dream.getCreatureByName(name: dictionary["creature"] as! String)
+        
+        var effects : Set<Dream.Effect> = [];
+        for effectNum in dictionary["effects"] as! NSArray
+        {
+            effects.insert(Effect(rawValue: effectNum as! Int)!) ;
+        }
+        
+        self.effects = effects
+        self.numberOfCreatures = Int(dictionary["numberOfCreatures"] as! NSNumber)
+    }
+    
+    
+    
+    static func getCreatureByName(name : String) -> Dream.Creature
+    {
+        
+        var creatureResult = Dream.Creature.unicorn(.pink);
+        
+        for creature in Dream.Creature.all
+        {
+            if (name == creature.name)
+            {
+                creatureResult = creature;
+            }
+        }
+        
+        return creatureResult;
+    }
+    
 }
 
 func ==(_ lhs: Dream.Creature, _ rhs: Dream.Creature) -> Bool {

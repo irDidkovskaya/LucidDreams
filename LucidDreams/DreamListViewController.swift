@@ -76,8 +76,11 @@ class DreamListViewController: UITableViewController {
     func withValues(_ mutations: (inout Model, inout State) -> Void) {
         let oldModel = self.model
 
+        
         mutations(&self.model, &self.state)
 
+        DataManager.saveModel(model: self.model);
+        
         /*
             The model and state changes can trigger table view updates so we'll
             wrap both calls in a begin/end updates call to the table view.
