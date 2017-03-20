@@ -35,6 +35,8 @@ class FavoriteCreatureListViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         favoriteCreatureDidChange?(favoriteCreature);
     }
 
