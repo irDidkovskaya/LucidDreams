@@ -19,10 +19,36 @@ import SpriteKit
 struct Dream: Equatable {
     // MARK: Types
 
-    enum Creature: Equatable {
+    enum Creature: Equatable, RawRepresentable {
         enum UnicornColor {
             case yellow, pink, white
-        } 
+        }
+        
+        typealias RawValue = Int
+        
+        init?(rawValue: RawValue) {
+            switch rawValue {
+            case 0 : self = .unicorn(.yellow)
+            case 1: self = .unicorn(.pink)
+            case 2: self = .unicorn(.white)
+            case 3: self = .crusty
+            case 4: self = .shark
+            case 5: self = .dragon
+                
+            default: return nil
+            }
+        }
+        
+        var rawValue: RawValue {
+            switch self {
+            case .unicorn(.yellow): return 0
+            case .unicorn(.pink): return 1
+            case .unicorn(.white): return 2
+            case .crusty: return 3
+            case .shark: return 4
+            case .dragon: return 5
+            }
+        }
 
         case unicorn(UnicornColor)
         case crusty
@@ -138,7 +164,7 @@ struct Dream: Equatable {
         
         var dictionary : Dictionary = Dictionary<String, AnyObject>()
         dictionary["description"] = description as AnyObject?
-        dictionary["creature"] = creature.name as AnyObject?
+        dictionary["creature"] = NSNumber(value: creature.rawValue) as AnyObject?
         
         
         let effectList : NSMutableArray = [];
@@ -147,10 +173,8 @@ struct Dream: Equatable {
             effectList.add(NSNumber(value: effect.rawValue))
         }
         
-        
         dictionary["effects"] = effectList
         dictionary["numberOfCreatures"] = NSNumber(value: numberOfCreatures) as AnyObject
-        
         
         
         return dictionary
@@ -161,7 +185,8 @@ struct Dream: Equatable {
     
     init(dictionary : Dictionary<String, AnyObject>) {
         self.description = dictionary["description"] as! String
-        self.creature = Dream.getCreatureByName(name: dictionary["creature"] as! String)
+        
+        self.creature = Dream.Creature.init(rawValue: Int(dictionary["creature"] as! NSNumber))!
         
         var effects : Set<Dream.Effect> = [];
         for effectNum in dictionary["effects"] as! NSArray
@@ -171,24 +196,6 @@ struct Dream: Equatable {
         
         self.effects = effects
         self.numberOfCreatures = Int(dictionary["numberOfCreatures"] as! NSNumber)
-    }
-    
-    
-    
-    static func getCreatureByName(name : String) -> Dream.Creature
-    {
-        
-        var creatureResult = Dream.Creature.unicorn(.pink);
-        
-        for creature in Dream.Creature.all
-        {
-            if (name == creature.name)
-            {
-                creatureResult = creature;
-            }
-        }
-        
-        return creatureResult;
     }
     
 }
