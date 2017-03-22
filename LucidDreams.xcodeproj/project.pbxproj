@@ -61,6 +61,7 @@
 		3EDB80831D036C42005A33E8 /* FirefliesParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3E94D6EF1D036A2C00F42667 /* FirefliesParticle.sks */; };
 		3EDB80851D036F3B005A33E8 /* LaserFocusParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3EDB80841D036F3B005A33E8 /* LaserFocusParticle.sks */; };
 		3EDB80871D037115005A33E8 /* RainParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3EDB80861D037115005A33E8 /* RainParticle.sks */; };
+		E6A270FD1E7DD8880020425F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A270FC1E7DD8880020425F /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,8 @@
 		3EDB80841D036F3B005A33E8 /* LaserFocusParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LaserFocusParticle.sks; sourceTree = "<group>"; };
 		3EDB80861D037115005A33E8 /* RainParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainParticle.sks; sourceTree = "<group>"; };
 		3EE76E9B1D03EBA400A16DFA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E6A270FC1E7DD8880020425F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		E6A271231E7EFDC40020425F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +155,7 @@
 				1604A6E51CCC2D9E00F87ED0 /* LucidDreams */,
 				1694D4B81CD72AFE001B5B0A /* Tests */,
 				1604A6E41CCC2D9E00F87ED0 /* Products */,
+				E6A271221E7EFDC40020425F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,6 +171,7 @@
 		1604A6E51CCC2D9E00F87ED0 /* LucidDreams */ = {
 			isa = PBXGroup;
 			children = (
+				E6A270F71E7DD6410020425F /* DataManager */,
 				1604A6F81CCC2DA900F87ED0 /* Model */,
 				1604A70B1CCC94FD00F87ED0 /* View */,
 				16AA027D1CF5FD0A003633BC /* Controller */,
@@ -339,6 +344,22 @@
 			name = "Collection View";
 			sourceTree = "<group>";
 		};
+		E6A270F71E7DD6410020425F /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				E6A270FC1E7DD8880020425F /* DataManager.swift */,
+			);
+			name = DataManager;
+			sourceTree = "<group>";
+		};
+		E6A271221E7EFDC40020425F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6A271231E7EFDC40020425F /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -389,6 +410,7 @@
 				TargetAttributes = {
 					1604A6E21CCC2D9E00F87ED0 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 7468SSZK9M;
 						LastSwiftMigration = 0800;
 						LastSwiftUpdateCheck = 0800;
 						ProvisioningStyle = Automatic;
@@ -453,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				167BBD811CFD4B2B0035618F /* ZStackLayout.swift in Sources */,
+				E6A270FD1E7DD8880020425F /* DataManager.swift in Sources */,
 				3E834D851CF129C70071C389 /* CreatureCell.swift in Sources */,
 				3E993D341CF2B08700DFAAF9 /* CollectionViewHeaderReusableView.swift in Sources */,
 				3E834D8B1CF12C230071C389 /* UIVIew+Layout.swift in Sources */,
@@ -626,9 +649,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7468SSZK9M;
 				INFOPLIST_FILE = LucidDreams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.LucidDreams";
+				PRODUCT_BUNDLE_IDENTIFIER = didkovska.LucidDreams.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -639,9 +663,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7468SSZK9M;
 				INFOPLIST_FILE = LucidDreams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.LucidDreams";
+				PRODUCT_BUNDLE_IDENTIFIER = didkovska.LucidDreams.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
