@@ -31,7 +31,7 @@ class DataManager {
             return nil;
         }
         
-        let model = DreamListViewControllerModel.init(dictionary: userDefaults.object(forKey: "Model") as! Dictionary<String, AnyObject>)
+        let model = DreamListViewControllerModel(dictionary: userDefaults.object(forKey: "Model") as! Dictionary<String, AnyObject>)
         
         
         return model

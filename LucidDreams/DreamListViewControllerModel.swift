@@ -65,13 +65,13 @@ struct DreamListViewControllerModel: Equatable {
     
      init(dictionary: Dictionary<String, AnyObject>)    {
         
-        let favoriteCreature = Dream.Creature.init(rawValue: Int(dictionary["favoriteCreature"] as! NSNumber))!;
+        let favoriteCreature = Dream.Creature(rawValue: Int(dictionary["favoriteCreature"] as! NSNumber))!;
     
         let dreamsList: NSMutableArray = [];
         
         for dict in dictionary["dreams"] as! NSArray
         {
-            let dream = Dream.init(dictionary: dict as! Dictionary<String, AnyObject>);
+            let dream = Dream(dictionary: dict as! Dictionary<String, AnyObject>);
             dreamsList.add(dream);
         }
         

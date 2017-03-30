@@ -186,7 +186,7 @@ struct Dream: Equatable {
     init(dictionary : Dictionary<String, AnyObject>) {
         self.description = dictionary["description"] as! String
         
-        self.creature = Dream.Creature.init(rawValue: Int(dictionary["creature"] as! NSNumber))!
+        self.creature = Dream.Creature(rawValue: Int(dictionary["creature"] as! NSNumber))!
         
         var effects : Set<Dream.Effect> = [];
         for effectNum in dictionary["effects"] as! NSArray
