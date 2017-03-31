@@ -19,37 +19,12 @@ import SpriteKit
 struct Dream: Equatable {
     // MARK: Types
 
-    enum Creature: Equatable, RawRepresentable {
+    enum Creature: Equatable {
         enum UnicornColor {
             case yellow, pink, white
         }
         
-        typealias RawValue = Int
         
-        init?(rawValue: RawValue) {
-            switch rawValue {
-            case 0 : self = .unicorn(.yellow)
-            case 1: self = .unicorn(.pink)
-            case 2: self = .unicorn(.white)
-            case 3: self = .crusty
-            case 4: self = .shark
-            case 5: self = .dragon
-                
-            default: return nil
-            }
-        }
-        
-        var rawValue: RawValue {
-            switch self {
-            case .unicorn(.yellow): return 0
-            case .unicorn(.pink): return 1
-            case .unicorn(.white): return 2
-            case .crusty: return 3
-            case .shark: return 4
-            case .dragon: return 5
-            }
-        }
-
         case unicorn(UnicornColor)
         case crusty
         case shark
@@ -164,9 +139,10 @@ struct Dream: Equatable {
         
         var dictionary : Dictionary = Dictionary<String, AnyObject>()
         dictionary["description"] = description as AnyObject?
-        dictionary["creature"] = NSNumber(value: creature.rawValue) as AnyObject?
         
+        dictionary["creature"] = NSNumber(value: Dream.Creature.all.index(of: self.creature)!) as AnyObject?;
         
+
         let effectList : NSMutableArray = [];
         for effect in effects
         {
@@ -186,7 +162,7 @@ struct Dream: Equatable {
     init(dictionary : Dictionary<String, AnyObject>) {
         self.description = dictionary["description"] as! String
         
-        self.creature = Dream.Creature(rawValue: Int(dictionary["creature"] as! NSNumber))!
+        self.creature = Dream.Creature.all[Int(dictionary["creature"] as! NSNumber)];
         
         var effects : Set<Dream.Effect> = [];
         for effectNum in dictionary["effects"] as! NSArray

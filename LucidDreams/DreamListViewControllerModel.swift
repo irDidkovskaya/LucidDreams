@@ -49,7 +49,8 @@ struct DreamListViewControllerModel: Equatable {
     mutating func encode() -> Dictionary<String, AnyObject> {
         
         var dictionary : Dictionary = Dictionary<String, AnyObject>()
-        dictionary["favoriteCreature"] = NSNumber(value : favoriteCreature.rawValue) as AnyObject?
+        
+        dictionary["favoriteCreature"] = NSNumber(value: Dream.Creature.all.index(of: favoriteCreature)!) as AnyObject?;
         
         let dreamsList: NSMutableArray = [];
         for dream in _dreams {
@@ -65,7 +66,7 @@ struct DreamListViewControllerModel: Equatable {
     
      init(dictionary: Dictionary<String, AnyObject>)    {
         
-        let favoriteCreature = Dream.Creature(rawValue: Int(dictionary["favoriteCreature"] as! NSNumber))!;
+        let favoriteCreature = Dream.Creature.all[Int(dictionary["favoriteCreature"] as! NSNumber)];
     
         let dreamsList: NSMutableArray = [];
         
